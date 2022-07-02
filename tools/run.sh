@@ -14,6 +14,7 @@ if [ $ngpus -gt 1 ]; then
         --validate --seed $seed --deterministic ${@:4}
 else
     CUDA_VISIBLE_DEVICES=$gpus \
+    PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
         python tools/train.py $config --gpus 1 \
         --validate --seed $seed --deterministic ${@:4}
 fi

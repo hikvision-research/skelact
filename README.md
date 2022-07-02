@@ -7,12 +7,27 @@ SkelAct is an open source repository which provides state-of-the-art skeleton-ba
 
 SkelAct is based on [MMAction2](https://github.com/open-mmlab/mmaction2/). Follow the instruction below to setup a valid Python environment.
 
+* Linux (CUDA)
+
 ```shell
 conda create -n skelact python=3.9 -y
 conda activate skelact
 conda install pytorch=1.11.0 torchvision=0.12.0 cudatoolkit=11.3 -c pytorch -y
-pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11.0/index.html
+pip install 'mmcv-full==1.5.0' -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11.0/index.html
 pip install mmaction2  # tested mmaction2 v0.24.0
+```
+
+* macOS (CPU only)
+
+```shell
+conda create -n skelact python=3.9 -y
+conda activate skelact
+conda install pytorch=1.12.0 torchvision=0.13.0 -c pytorch -y
+pip install 'mmcv-full==1.5.0'
+git clone --depth 1 --branch v0.24.0 https://github.com/open-mmlab/mmaction2.git
+cd mmaction2
+sed -i '' '/decord/d' requirements/build.txt  # remove decord from requirements
+CC=clang CXX=clang++ CFLAGS='-stdlib=libc++' pip install .
 ```
 
 ## Get Started
